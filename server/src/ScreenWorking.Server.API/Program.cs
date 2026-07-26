@@ -52,17 +52,21 @@ builder.Services.AddSingleton<CollaborationWebSocketHandler>();
 
 var app = builder.Build();
 
-// Configure HTTP pipeline
-if (app.Environment.IsDevelopment())
+// Enable Swagger UI and root status endpoint in all environments
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "[screen working] API v1");
+    c.RoutePrefix = "swagger";
+});
 
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseWebSockets();
+
+// Root status endpoint for browser checks
+app.MapGet("/", () => Results.Text("🟢 [screen working] Collaboration Server is Online!\nWebSocket Endpoint: wss://" + app.Environment.EnvironmentName + "/ws", "text/plain"));
 
 // WebSocket Endpoint
 app.Map("/ws", async context =>
