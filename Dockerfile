@@ -2,13 +2,12 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# Copy CSProj and restore dependencies
-COPY server/src/ScreenWorking.Server.API/ScreenWorking.Server.API.csproj ./ScreenWorking.Server.API/
-RUN dotnet restore ./ScreenWorking.Server.API/ScreenWorking.Server.API.csproj
+# Copy all source files
+COPY . .
 
-# Copy source code and publish
-COPY server/src/ScreenWorking.Server.API/ ./ScreenWorking.Server.API/
-RUN dotnet publish ./ScreenWorking.Server.API/ScreenWorking.Server.API.csproj -c Release -o /app/out
+# Restore and publish supporting all possible Render root contexts
+RUN dotnet restore ./server/src/ScreenWorking.Server.API/ScreenWorking.Server.API.csproj || dotnet restore ./src/ScreenWorking.Server.API/ScreenWorking.Server.API.csproj || dotnet restore ScreenWorking.Server.API.csproj
+RUN dotnet publish ./server/src/ScreenWorking.Server.API/ScreenWorking.Server.API.csproj -c Release -o /app/out || dotnet publish ./src/ScreenWorking.Server.API/ScreenWorking.Server.API.csproj -c Release -o /app/out || dotnet publish ScreenWorking.Server.API.csproj -c Release -o /app/out
 
 # Runtime Stage
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
