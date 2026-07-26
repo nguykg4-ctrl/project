@@ -12,8 +12,6 @@
 # Visual Studio / Rider / IDE temp files
 .vs/
 .idea/
-*.csproj
-*.sln
 *.suo
 *.user
 *.userprefs
