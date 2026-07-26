@@ -10,7 +10,7 @@ namespace ScreenWorking.Collaboration.Editor.UI
 {
     /// <summary>
     /// Main Editor UI Toolkit window for ScreenWorking collaboration.
-    /// Manages session configuration, role selection (Host vs Team Member), automatic EditorPrefs saving, and active peer tracking.
+    /// Manages session configuration, custom room creation, role selection (Host vs Team Member), automatic EditorPrefs saving, and active peer tracking.
     /// </summary>
     public class ScreenWorkingWindow : EditorWindow
     {
@@ -70,14 +70,14 @@ namespace ScreenWorking.Collaboration.Editor.UI
             connBox.text = "Saved Session & Team Settings";
 
             string savedUrl = EditorPrefs.GetString(PREF_SERVER_URL, "wss://project-1-31b9.onrender.com/ws");
-            string savedRoom = EditorPrefs.GetString(PREF_ROOM_CODE, "team-room-1");
+            string savedRoom = EditorPrefs.GetString(PREF_ROOM_CODE, "mnuskuroysl-3");
             string savedUser = EditorPrefs.GetString(PREF_USERNAME, Environment.UserName);
             UserRole savedRole = (UserRole)EditorPrefs.GetInt(PREF_ROLE, (int)UserRole.Host);
 
             serverUrlField = new TextField("Server URL") { value = savedUrl };
             serverUrlField.RegisterValueChangedCallback(evt => EditorPrefs.SetString(PREF_SERVER_URL, evt.newValue));
 
-            roomIdField = new TextField("Room Code") { value = savedRoom };
+            roomIdField = new TextField("Room Code / Name") { value = savedRoom };
             roomIdField.RegisterValueChangedCallback(evt => EditorPrefs.SetString(PREF_ROOM_CODE, evt.newValue));
 
             usernameField = new TextField("Display Name") { value = savedUser };
@@ -97,13 +97,15 @@ namespace ScreenWorking.Collaboration.Editor.UI
             btnContainer.style.flexDirection = FlexDirection.Row;
             btnContainer.style.marginTop = 10;
 
-            createHostButton = new Button(() => ConnectSession(UserRole.Host)) { text = "👑 Create Room (Host)" };
+            createHostButton = new Button(() => ConnectSession(UserRole.Host)) { text = "👑 Create & Host Room" };
             createHostButton.style.flexGrow = 1;
-            createHostButton.style.height = 30;
+            createHostButton.style.height = 32;
+            createHostButton.style.unityFontStyleAndWeight = FontStyle.Bold;
 
             joinTeamButton = new Button(() => ConnectSession(UserRole.TeamMember)) { text = "🟢 Join Room (Team)" };
             joinTeamButton.style.flexGrow = 1;
-            joinTeamButton.style.height = 30;
+            joinTeamButton.style.height = 32;
+            joinTeamButton.style.unityFontStyleAndWeight = FontStyle.Bold;
 
             btnContainer.Add(createHostButton);
             btnContainer.Add(joinTeamButton);
@@ -169,8 +171,8 @@ namespace ScreenWorking.Collaboration.Editor.UI
 
             clientEngine.Connect(url, room, "token");
 
-            string roleTitle = role == UserRole.Host ? "Host" : "Team Member";
-            statusLabel.text = $"Status: Connected to {room} ({roleTitle})";
+            string roleTitle = role == UserRole.Host ? "Host / Creator" : "Team Member";
+            statusLabel.text = $"Status: Connected to '{room}' ({roleTitle})";
             createHostButton.SetEnabled(false);
             joinTeamButton.SetEnabled(false);
             disconnectButton.SetEnabled(true);
