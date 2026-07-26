@@ -22,13 +22,10 @@
 *.opendb
 *.VC.db
 
-# OS files
-.DS_Store
-Thumbs.db
-
 # Server build output
 /server/src/ScreenWorking.Server.API/bin/
 /server/src/ScreenWorking.Server.API/obj/
 /server/tests/ScreenWorking.Server.Tests/bin/
 /server/tests/ScreenWorking.Server.Tests/obj/
+/server/publish/
 *.db
