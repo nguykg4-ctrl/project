@@ -1,5 +1,10 @@
+using System;
+using System.Linq;
 using System.Net.WebSockets;
-using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using ScreenWorking.Server.API.Services;
 
 namespace ScreenWorking.Server.API.WebSockets
@@ -21,7 +26,7 @@ namespace ScreenWorking.Server.API.WebSockets
             string roomId = context.Request.Query["roomId"].FirstOrDefault() ?? "default-room";
             string clientId = Guid.NewGuid().ToString("N");
 
-            roomManager.AddClient(roomId, clientId, webSocket);
+            await roomManager.AddClientAsync(roomId, clientId, webSocket);
 
             var buffer = new byte[1024 * 64];
             try
@@ -40,7 +45,7 @@ namespace ScreenWorking.Server.API.WebSockets
                         byte[] payload = new byte[result.Count];
                         Array.Copy(buffer, 0, payload, 0, result.Count);
 
-                        // Broadcast operation payload to peers in room
+                        // Broadcast operation payload to peers in room & record history
                         await roomManager.BroadcastAsync(roomId, clientId, payload);
                     }
                 }
