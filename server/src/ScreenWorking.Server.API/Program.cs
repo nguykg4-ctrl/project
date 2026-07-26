@@ -52,7 +52,7 @@ builder.Services.AddSingleton<CollaborationWebSocketHandler>();
 
 var app = builder.Build();
 
-// Enable Swagger UI and root status endpoint in all environments
+// Enable Swagger UI in all environments
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
@@ -65,8 +65,9 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseWebSockets();
 
-// Root status endpoint for browser checks
-app.MapGet("/", () => Results.Text("🟢 [screen working] Collaboration Server is Online!\nWebSocket Endpoint: wss://" + app.Environment.EnvironmentName + "/ws", "text/plain"));
+// Root status & health check endpoints
+app.MapGet("/", () => Results.Text("🟢 [screen working] Real-Time Collaboration Server is Online!\nWebSocket Endpoint: wss://project-1-31b9.onrender.com/ws", "text/plain"));
+app.MapGet("/healthz", () => Results.Ok("healthy"));
 
 // WebSocket Endpoint
 app.Map("/ws", async context =>
