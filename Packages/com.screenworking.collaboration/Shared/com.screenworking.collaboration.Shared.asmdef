@@ -1,0 +1,14 @@
+{
+    "name": "com.screenworking.collaboration.Shared",
+    "rootNamespace": "ScreenWorking.Collaboration.Shared",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

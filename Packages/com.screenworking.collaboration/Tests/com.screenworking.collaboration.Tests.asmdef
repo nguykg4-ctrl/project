@@ -1,0 +1,24 @@
+{
+    "name": "com.screenworking.collaboration.Tests",
+    "rootNamespace": "ScreenWorking.Collaboration.Tests",
+    "references": [
+        "com.screenworking.collaboration.Shared",
+        "com.screenworking.collaboration.Editor"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

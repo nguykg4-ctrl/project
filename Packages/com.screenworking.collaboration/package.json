@@ -1,0 +1,24 @@
+{
+  "name": "com.screenworking.collaboration",
+  "version": "1.0.0",
+  "displayName": "[screen working] Real-Time Scene Collaboration",
+  "description": "Enterprise-grade real-time multi-user scene editing and collaboration package for Unity Editor 2022.3 LTS and Unity 6.",
+  "unity": "2022.3",
+  "unityRelease": "0f1",
+  "documentationUrl": "https://github.com/screenworking/collaboration/blob/main/docs/architecture.md",
+  "changelogUrl": "https://github.com/screenworking/collaboration/blob/main/Packages/com.screenworking.collaboration/CHANGELOG.md",
+  "licensesUrl": "https://github.com/screenworking/collaboration/blob/main/Packages/com.screenworking.collaboration/LICENSE.md",
+  "keywords": [
+    "collaboration",
+    "multiplayer-editor",
+    "realtime",
+    "scene-sync",
+    "unity-editor"
+  ],
+  "author": {
+    "name": "ScreenWorking Engineering Team",
+    "email": "engineering@screenworking.io",
+    "url": "https://screenworking.io"
+  },
+  "dependencies": {}
+}
