@@ -1,14 +1,14 @@
 # Build Stage
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /app
+WORKDIR /src
 
 # Copy CSProj and restore dependencies
-COPY src/ScreenWorking.Server.API/*.csproj ./src/ScreenWorking.Server.API/
-RUN dotnet restore ./src/ScreenWorking.Server.API/ScreenWorking.Server.API.csproj
+COPY src/ScreenWorking.Server.API/ScreenWorking.Server.API.csproj ./ScreenWorking.Server.API/
+RUN dotnet restore ./ScreenWorking.Server.API/ScreenWorking.Server.API.csproj
 
 # Copy source code and publish
-COPY src/ScreenWorking.Server.API/ ./src/ScreenWorking.Server.API/
-RUN dotnet publish ./src/ScreenWorking.Server.API/ScreenWorking.Server.API.csproj -c Release -o /app/out
+COPY src/ScreenWorking.Server.API/ ./ScreenWorking.Server.API/
+RUN dotnet publish ./ScreenWorking.Server.API/ScreenWorking.Server.API.csproj -c Release -o /app/out
 
 # Runtime Stage
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
